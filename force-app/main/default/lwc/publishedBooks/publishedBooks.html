@@ -1,0 +1,27 @@
+<template>
+    <!-- Card container for the book list -->
+    <lightning-card title="Most Published Books" icon-name="custom:custom63">
+        <!-- Datatable rendered only when books array has items -->
+        <template if:true={books.length}>
+            <lightning-datatable key-field="rowId"
+                                 data={books}
+                                 columns={columns}
+                                 hide-checkbox-column
+                                 show-row-number-column>
+            </lightning-datatable>
+        </template>
+
+        <!-- Placeholder message shown while waiting for first event -->
+        <template if:false={books.length}>
+            <div class="slds-p-around_medium slds-text-color_weak">
+                Waiting for events (MostPublishedBooks__e)...
+            </div>
+        </template>
+
+        <!-- Action buttons: Clear data and Unsubscribe -->
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_small slds-m-top_small slds-grid slds-grid_align-spread">
+            <lightning-button label="Clear" variant="neutral" onclick={handleClear}></lightning-button>
+            <lightning-button label="Unsubscribe" variant="destructive-text" onclick={handleUnsubscribe} disabled={notSubscribed}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

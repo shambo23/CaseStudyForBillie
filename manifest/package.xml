@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+		<members>MostPublishedBookService</members>
+		<members>MostPublishedBookServiceTest</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>publishedBooks</members>
+		<name>LightningComponentBundle</name>
+	</types>
+	<types>
+        <members>MostPublishedBooks__e</members>
+        <name>CustomObject</name>
+    </types>
+	    <types>
+        <members>Most_Published_Book</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>Most_Published_Book</members>
+        <name>ExternalCredential</name>
+    </types>
+	 <types>
+        <members>Named_Principle_Access</members>
+        <name>PermissionSet</name>
+    </types>	
+    <types>
+        <members>Most_Published_Books</members>
+        <name>CustomTab</name>
+    </types>
+</Package>

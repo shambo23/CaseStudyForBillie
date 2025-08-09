@@ -1,0 +1,22 @@
+{
+  "packageDirectories": [
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "force-app",
+      "default": true,
+      "package": "CaseStudyForBillie",
+      "versionDescription": "Assignment"
+    }
+  ],
+  "name": "Assignment",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "64.0",
+  "packageAliases": {
+    "CaseStudyForBillie": "0HoGB000000Gn0v0AC",
+    "CaseStudyForBillie@0.1.0-1": "04tGB000003fvvPYAQ",
+    "CaseStudyForBillie@0.1.0-2": "04tGB000003fvvUYAQ",
+    "CaseStudyForBillie@0.1.0-3": "04tGB000003fvvZYAQ"
+  }
+}
