@@ -1,5 +1,9 @@
 ### Billie - Case Study ###
 
+### USER GUIDE VIDEO [Package Installation + Post Deployment + Feature Validation]
+
+[text](https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45e1-8ce2-6004c2d1dd89)
+
 ### [MANDATORY] Post-Deployment Steps
 
 After deployment, ensure that the **Named Principle Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings.
