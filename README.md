@@ -1,8 +1,8 @@
-### Case Study For Billie ###
+### Billie - Case Study ###
 
-### Post-Deployment Steps
+### [MANDATORY] Post-Deployment Steps
 
-After deployment, ensure that the **Named_Principle_Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings.
+After deployment, ensure that the **Named Principle Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings.
 
 ### Testing Process
 
@@ -12,7 +12,7 @@ After deployment, ensure that the **Named_Principle_Access** permission set is a
     ```apex
     System.enqueueJob(new MostPublishedBookService());
     ```
-4. Please open **Most_Published_Books** and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
+4. Please open **Most Published Books** tab and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
 
 ### INSTALLATION PROCESS
 ## Salesforce Packaging: Clone, Connect Dev Hub, Create Unlocked Package, Install in Scratch Org
@@ -123,6 +123,6 @@ sf org open --target-org ScratchPkgOrg
 sf package version report --package "YourPkgName" --target-dev-hub DevHub
 ```
 
-### 10) Please perform mandatory Post Deployment steps and test the featured. Please refer to the top section of README file for the steps.
+### 10) Please perform mandatory Post Deployment steps and test the feature. Please refer to the top section of README file for the steps.
 
 
