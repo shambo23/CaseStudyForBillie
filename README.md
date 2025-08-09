@@ -96,7 +96,6 @@ sf package version list --packages "YourPkgName" --target-dev-hub DevHub
 sf package install \
   --package 04tXXXXXXXXXXXXXX \
   --target-org ScratchPkgOrg \
-  --installation-key-bypass \
   --publish-wait 10 \
   --wait 30
 ```
