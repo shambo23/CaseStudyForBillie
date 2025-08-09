@@ -30,7 +30,7 @@ npm install -g @salesforce/cli
 
 ### 1) Clone the repository
 ```sh
-git clone https://github.com/shambo23/CaseStudyForBillie.git.git
+git clone https://github.com/shambo23/CaseStudyForBillie.git
 
 ```
 
