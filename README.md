@@ -14,7 +14,7 @@ After deployment, ensure that the **Named_Principle_Access** permission set is a
     ```
 4. Please open **Most_Published_Books** and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
 
-**INSTALLATION PROCESS**
+### INSTALLATION PROCESS
 ## Salesforce Packaging: Clone, Connect Dev Hub, Create Unlocked Package, Install in Scratch Org
 
 Follow these steps on macOS using the Salesforce CLI (sf).
@@ -28,19 +28,20 @@ brew install salesforce-cli
 npm install -g @salesforce/cli
 ```
 
-### 1) Clone the repository
+### 1) Clone the repository in your local folder and open it via your IDE
 ```sh
 git clone https://github.com/shambo23/CaseStudyForBillie.git
 
 ```
+### 2) Authorize your personal org and ensure you org has Dev Hub enabled
 
-### 2) Authenticate to your Dev Hub
+### 3) Authenticate to your Dev Hub
 ```sh
 sf org login web --alias DevHub --set-default-dev-hub
 sf org display --target-org DevHub
 ```
 
-### 3) Create an Unlocked Package (one-time per package)
+### 4) Create an Unlocked Package (one-time per package)
 - Ensure your source path (e.g., force-app) exists and is referenced in sfdx-project.json.
 ```sh
 sf package create \
@@ -51,7 +52,7 @@ sf package create \
   --target-dev-hub DevHub
 ```
 
-### 4) Create a Package Version
+### 5) Create a Package Version
 ```sh
 sf package version create \
   --package "YourPkgName" \
@@ -65,7 +66,7 @@ sf package version create \
 sf package version list --packages "YourPkgName" --target-dev-hub DevHub
 ```
 
-### 5) Create a Scratch Org
+### 6) Create a Scratch Org
 - Uses config/project-scratch-def.json (adjust if your file differs).
 ```sh
 sf org create scratch \
@@ -76,7 +77,20 @@ sf org create scratch \
   --set-default
 ```
 
-### 6) Install the Package into the Scratch Org
+### 7) Ensure to store the package id and version Id (Will be used in next step)
+
+- Uses config/project-scratch-def.json (adjust if your file differs).
+```sh
+sf package version list --packages <YourPackageNameOrAlias> --target-dev-hub <DevHubAlias> --json \
+  | jq -r '.result[0].SubscriberPackageVersionId'
+```
+OR 
+- Get the Subscriber Package Version Id (starts with 04t):
+```sh
+sf package version list --packages "YourPkgName" --target-dev-hub DevHub
+```
+
+### 8) Install the Package into the Scratch Org
 - Using the 04t Id:
 ```sh
 sf package install \
@@ -91,12 +105,12 @@ sf package install \
 sf package install \
   --package "YourPkgName@x.y.z" \
   --target-org ScratchPkgOrg \
-  --installation-key-bypass \
   --publish-wait 10 \
   --wait 30
 ```
+[ If you face issue please add   --installation-key-bypass \ to the command ]
 
-### 7) Validate
+### 9) Validate
 ```sh
 sf package installed list --target-org ScratchPkgOrg
 sf org open --target-org ScratchPkgOrg
@@ -108,5 +122,7 @@ sf org open --target-org ScratchPkgOrg
 ```sh
 sf package version report --package "YourPkgName" --target-dev-hub DevHub
 ```
+
+### 10) Please perform mandatory Post Deployment steps and test the featured. Please refer to the top section of README file for the steps.
 
 
