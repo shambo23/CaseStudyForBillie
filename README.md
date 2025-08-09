@@ -1,14 +1,18 @@
 ### Case Study For Billie ###
 
-**###POST DEPLOYMENT STEPS###**
+### Post-Deployment Steps
 
-Please ensure to add **Named_Principle_Access** permission set to the user who is testing. As for Named Credentials SF has made it mandatory to assign permissions to the users. In this project Named Credential is used instead of Remote Site Settings
+After deployment, ensure that the **Named_Principle_Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings.
 
-**###TESTING PROCESS###**
+### Testing Process
 
-Please open developer console from your org and open Annonymous window from Dev console.
-Then please execute the below script -
-**System.enqueueJob(new MostPublishedBookService());**
+1. Open the Developer Console in your Salesforce org.
+2. Navigate to the Anonymous Execution window within the Developer Console.
+3. Execute the following script:
+    ```apex
+    System.enqueueJob(new MostPublishedBookService());
+    ```
+4. Please open **Most_Published_Books** and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
 
 **###INSTALLATION PROCESS####**
 ## Salesforce Packaging: Clone, Connect Dev Hub, Create Unlocked Package, Install in Scratch Org
