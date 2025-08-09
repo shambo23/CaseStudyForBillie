@@ -2,7 +2,7 @@
 
 ### USER GUIDE VIDEO [Package Installation + Post Deployment + Feature Validation]
 
-[text](https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45e1-8ce2-6004c2d1dd89)
+https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45e1-8ce2-6004c2d1dd89
 
 ### [MANDATORY] Post-Deployment Steps
 
