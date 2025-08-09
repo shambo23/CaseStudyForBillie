@@ -14,7 +14,7 @@ After deployment, ensure that the **Named_Principle_Access** permission set is a
     ```
 4. Please open **Most_Published_Books** and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
 
-**###INSTALLATION PROCESS####**
+**INSTALLATION PROCESS**
 ## Salesforce Packaging: Clone, Connect Dev Hub, Create Unlocked Package, Install in Scratch Org
 
 Follow these steps on macOS using the Salesforce CLI (sf).
