@@ -17,6 +17,7 @@ After deployment, ensure that the **Named Principle Access** permission set is a
     System.enqueueJob(new MostPublishedBookService());
     ```
 4. Please open **Most Published Books** tab and you should be able to see the results in tabular format sorted by Edition number in Descending order. 
+5. MostPublishedBookServiceTest is the test class for the main class MostPublishedBookService
 
 ### INSTALLATION PROCESS
 ## Salesforce Packaging: Clone, Connect Dev Hub, Create Unlocked Package, Install in Scratch Org
@@ -127,5 +128,6 @@ sf package version report --package "YourPkgName" --target-dev-hub DevHub
 ```
 
 ### 10) Please perform mandatory Post Deployment steps and test the feature. Please refer to the top section of README file for the steps.
+### 11) MostPublishedBookServiceTest is the test class for the main class MostPublishedBookService
 
 

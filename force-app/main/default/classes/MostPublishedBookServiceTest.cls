@@ -1,6 +1,5 @@
 /**
- * This class contains unit tests for validating the behavior of Apex classes
- * and triggers.
+ * MostPublishedBookServiceTest is the test class for the main class MostPublishedBookService
  */
 @isTest
 private class MostPublishedBookServiceTest {
