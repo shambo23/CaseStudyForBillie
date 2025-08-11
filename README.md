@@ -6,7 +6,9 @@ https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45
 
 ### [MANDATORY] Post-Deployment Steps
 
-After deployment, ensure that the **Named Principle Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings.
+After deployment, ensure that the **Named Principle Access** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings. [This Permission Set also contains Tab & Class access.]
+
+**Note**: Please ensure the running user(testing user) has neccessary access to run script via annonymous window and has access to the APEX class.  
 
 ### Testing Process
 
@@ -128,6 +130,6 @@ sf package version report --package "YourPkgName" --target-dev-hub DevHub
 ```
 
 ### 10) Please perform mandatory Post Deployment steps and test the feature. Please refer to the top section of README file for the steps.
-### 11) MostPublishedBookServiceTest is the test class for the main class MostPublishedBookService
 
+### 11) MostPublishedBookServiceTest is the test class for the main class MostPublishedBookService
 
