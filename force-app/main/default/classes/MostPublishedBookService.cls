@@ -1,7 +1,7 @@
 /**
  * MostPublishedBookService - This class calls Most Published Book API in Queueable context
 **/
-public without sharing class MostPublishedBookService implements Queueable, Database.AllowsCallouts {
+public with sharing class MostPublishedBookService implements Queueable, Database.AllowsCallouts {
     public void execute(QueueableContext context) {
         // Named Credential alias (Configured as 'Most_Published_Book')
         String endpoint = 'callout:Most_Published_Book';   
