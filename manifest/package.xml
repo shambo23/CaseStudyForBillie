@@ -10,6 +10,8 @@
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
+        <members>Book_Configuration__mdt</members>
+        <members>API_Detail__mdt</members>
         <members>Exception_Log__c</members>
         <members>MostPublishedBooks__e</members>
         <name>CustomObject</name>
