@@ -1,5 +1,13 @@
 ### Billie - Case Study ###
 
+**CHANGE LOG (v2):** [15/08/20205]
+1. Added exception handling in Service class.
+2. Logging exception in a custom object.
+3. Modularized the code.
+4. Added extra guardrails
+5. Moved Hard Coded string literals to Custom Metadata.
+6. Permission Set renamed and added new permissions.
+
 ### USER GUIDE VIDEO [Package Installation + Post Deployment + Feature Validation]
 
 https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45e1-8ce2-6004c2d1dd89
@@ -135,9 +143,3 @@ sf package version report --package "YourPkgName" --target-dev-hub DevHub
 
 
 
-**CHANGE LOG (v2):** [15/08/20205]
-1. Added exception handling in Service class.
-2. Logging exception in a custom object.
-3. Modularized the code.
-4. Added extra guardrails
-5. Moved Hard Coded string literals to Custom Metadata.
