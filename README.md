@@ -24,7 +24,7 @@ After deployment, ensure that the **Most Published Book Permission (Named Creden
 
 **Notes**: 
 1. Please ensure the running user(testing user) has neccessary access to run script via annonymous window and has access to the APEX class.  
-2. Logged all the failed scenarios in Exception Log object. **But in Production scenarion it is recommended to Keep API Log for logging all API transactions and failure scenarios in Exception Log object**.
+2. Logged all the failed scenarios in Exception Log object. **But in Production scenarios it is recommended to Keep API Log for logging all API transactions and failure scenarios in Exception Log object**.
 
 ### Testing Process
 
