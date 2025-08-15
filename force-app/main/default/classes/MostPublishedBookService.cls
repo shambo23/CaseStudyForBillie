@@ -37,6 +37,8 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
     private static final String MSG_HTTP_NULL_RESPONSE_BODY     = 'HttpResponse was null (possible timeout / network issue without thrown exception).';
     private static final String MSG_TRUNCATED_SUFFIX            = '...[truncated]';
     private static final String MSG_NO_BODY                     = '[No Body Returned]';
+    // Default line number placeholder for non-code related logs (e.g., HTTP response without stack context)
+    private static final Integer LOG_NO_LINE_NUMBER             = 0;
 
     /* =============================
        Public Queueable Entry Point
@@ -200,7 +202,7 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
     /**
      * Log an unsuccessful (non-200 or blank body) HTTP response so failures without exceptions are visible.
      * Reuses Exception_Log__c structure:
-     *  - Error_Message__c: concise status/endpoint summary (<=255 chars)
+    *  - Error_Message__c: status/endpoint summary (full string, no manual truncation)
      *  - Stack_Trace__c: truncated response body (acts as raw payload storage)
      *  - Line_Number__c: set to 0 (no line context for HTTP response)
      *  - Type__c: 'HTTP'
@@ -209,9 +211,9 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
         String endpoint = (apiDetail != null ? apiDetail.Http_Endpoint__c : STR_UNKNOWN_ENDPOINT);
         if (res == null) {
             INSERT new Exception_Log__c(
-                Error_Message__c = (MSG_HTTP_NULL_RESPONSE_PREFIX + endpoint).left(255),
+                Error_Message__c = (MSG_HTTP_NULL_RESPONSE_PREFIX + endpoint),
                 Stack_Trace__c = MSG_HTTP_NULL_RESPONSE_BODY,
-                Line_Number__c = 0,
+                Line_Number__c = LOG_NO_LINE_NUMBER,
                 Type__c = LOG_TYPE_HTTP
             );
             return;
@@ -225,9 +227,9 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
         }
         String message = LOG_TYPE_HTTP + ' ' + statusCode + ' ' + status + ' - ' + endpoint;
         INSERT new Exception_Log__c(
-            Error_Message__c = message.left(255),
+            Error_Message__c = message,
             Stack_Trace__C = (body == null ? MSG_NO_BODY : body),
-            Line_Number__c = 0,
+            Line_Number__c = LOG_NO_LINE_NUMBER,
             Type__c = LOG_TYPE_HTTP
         );
     }
