@@ -16,7 +16,7 @@ https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45
 **Video for Latest version [Updated Components]**
 https://www.loom.com/share/7859365a3abc4d2491d187f3dcd1a19e?sid=cc415a90-67db-4b0e-a759-5d803393c7b3
 
-**Notes:** **Named Principle Access** Permission Set renamed to **Most Published Book Permission (Named Credential + Features)** in latest version.
+**Notes:** "Named Principle Access" Permission Set renamed to "Most Published Book Permission (Named Credential + Features)" in the latest version.
 
 ### [MANDATORY] Post-Deployment Steps
 
