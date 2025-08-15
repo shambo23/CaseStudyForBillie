@@ -15,8 +15,8 @@
         <name>CustomObject</name>
     </types>
     <types>
-        <members>Book_Configuration__mdt.Most_Published_Book</members>
-        <members>API_Detail__mdt.Most_Published_Book</members>
+        <members>Book_Configuration.Most_Published_Book</members>
+        <members>API_Detail.Most_Published_Book</members>
         <name>CustomMetadata</name>
     </types>
 	<types>
