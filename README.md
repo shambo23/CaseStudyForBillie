@@ -12,6 +12,12 @@
 
 https://www.loom.com/share/9894744a8980476aaee0b741d916351b?sid=39c3c688-84af-45e1-8ce2-6004c2d1dd89
 
+
+**Video for Latest version [Updated Components]**
+https://www.loom.com/share/7859365a3abc4d2491d187f3dcd1a19e?sid=cc415a90-67db-4b0e-a759-5d803393c7b3
+
+**Notes:** **Named Principle Access** Permission Set renamed to **Most Published Book Permission (Named Credential + Features)** in latest version.
+
 ### [MANDATORY] Post-Deployment Steps
 
 After deployment, ensure that the **Most Published Book Permission (Named Credential + Features)** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings. [This Permission Set also contains Tab & Class access.]
