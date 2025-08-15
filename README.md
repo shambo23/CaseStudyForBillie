@@ -22,7 +22,9 @@ https://www.loom.com/share/7859365a3abc4d2491d187f3dcd1a19e?sid=cc415a90-67db-4b
 
 After deployment, ensure that the **Most Published Book Permission (Named Credential + Features)** permission set is assigned to the user performing the testing. Salesforce requires permissions to be explicitly assigned for Named Credentials. In this project, Named Credentials are used instead of Remote Site Settings. [This Permission Set also contains Tab & Class access.]
 
-**Note**: Please ensure the running user(testing user) has neccessary access to run script via annonymous window and has access to the APEX class.  
+**Note**: 
+1. Please ensure the running user(testing user) has neccessary access to run script via annonymous window and has access to the APEX class.  
+2. Logged all the failed scenarios in Exception Log object. But in Production scenarion it is recommended to Keep API Log for logging all API transactions and failure scenarios in Exception Log object.
 
 ### Testing Process
 
