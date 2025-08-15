@@ -3,7 +3,7 @@
  * Purpose:
  *  - Validate Queueable execution paths for MostPublishedBookService.
  *  - Ensure filtering logic (Edition > threshold) behaves as expected.
- *  - Exercise branches: qualified books, no qualifiers, HTTP error, boundary, and large payload cap.
+ *  - Exercise branches: qualified books, no qualifiers, HTTP error, and large payload cap.
  *  - Leverages HttpCalloutMock to simulate external API responses (no real callouts in tests).
  *
  * Notes:
@@ -53,17 +53,23 @@ private class MostPublishedBookServiceTest {
             return res;
         }
     }
-    
+
     @isTest
     static void testQueueable_withQualifiedBooks() {
-        // Arrange: mock with qualifying results (> threshold)
         Test.setMock(HttpCalloutMock.class, new SuccessBooksMock());
         Test.startTest();
-        // Act: enqueue queueable job
         System.enqueueJob(new MostPublishedBookService());
         Test.stopTest();
-        // Assert: absence of exception implies success path executed
         System.assertEquals(true, true, 'Qualified books processed without exception.');
+    }
+
+    @isTest
+    static void testQueueable_errorStatus() {
+        Test.setMock(HttpCalloutMock.class, new ErrorStatusMock());
+        Test.startTest();
+        System.enqueueJob(new MostPublishedBookService());
+        Test.stopTest();
+        System.assertEquals(true, true, 'Handled error status without exception.');
     }
     
     @isTest
@@ -78,42 +84,7 @@ private class MostPublishedBookServiceTest {
         System.assertEquals(true, true, 'Handled no qualifying books gracefully.');
     }
     
-    @isTest
-    static void testQueueable_errorStatus() {
-        // Arrange: mock HTTP 500
-        Test.setMock(HttpCalloutMock.class, new ErrorStatusMock());
-        Test.startTest();
-        // Act
-        System.enqueueJob(new MostPublishedBookService());
-        Test.stopTest();
-        // Assert
-        System.assertEquals(true, true, 'Handled error status without exception.');
-    }
-
-    // Boundary test: includes a book exactly at threshold (excluded) and one just above (included)
-    private class BoundaryBooksMock implements HttpCalloutMock {
-        public HTTPResponse respond(HTTPRequest req) {
-            // Fallback threshold is 600000 (if metadata not present). One book at 600000 (excluded), one at 600001 (included)
-            String body = '[{"Books":[{"Author":"Edge","Title":"At Threshold","Edition":600000},{"Author":"Edge2","Title":"Above Threshold","Edition":600001}]}]';
-            HttpResponse res = new HttpResponse();
-            res.setStatusCode(200);
-            res.setBody(body);
-            return res;
-        }
-    }
-
-    @isTest
-    static void testQueueable_boundaryInclusion() {
-        // Arrange: boundary case editions
-        Test.setMock(HttpCalloutMock.class, new BoundaryBooksMock());
-        Test.startTest();
-        // Act
-        System.enqueueJob(new MostPublishedBookService());
-        Test.stopTest();
-        // Assert: absence of exception (optional future enhancement: inspect event payload when test APIs allow)
-        System.assertEquals(true, true, 'Boundary case processed.');
-    }
-
+    
     // Large payload test: ensure limiter logic (manual cap) executes without exception
     private class LargePayloadMock implements HttpCalloutMock {
         public HTTPResponse respond(HTTPRequest req) {

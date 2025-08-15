@@ -30,6 +30,13 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
     // Safety cap to help prevent Platform Event payload size overrun (approx 1MB total event limit).
     // Tune based on average serialized size per book or move to metadata if admins need runtime control.
     private static final Integer MAX_BOOKS_TO_PUBLISH = Book_Configuration__mdt.getInstance(API_METADATA_NAME)!=null ? Integer.valueOf(Book_Configuration__mdt.getInstance(API_METADATA_NAME).Max_Books_To_Publish__c) : 200;
+    // Logging / message literals (centralize to avoid scattered magic strings)
+    private static final String STR_UNKNOWN_ENDPOINT            = 'UNKNOWN_ENDPOINT';
+    private static final String LOG_TYPE_HTTP                   = 'HTTP';
+    private static final String MSG_HTTP_NULL_RESPONSE_PREFIX   = 'HTTP NULL RESPONSE - ';
+    private static final String MSG_HTTP_NULL_RESPONSE_BODY     = 'HttpResponse was null (possible timeout / network issue without thrown exception).';
+    private static final String MSG_TRUNCATED_SUFFIX            = '...[truncated]';
+    private static final String MSG_NO_BODY                     = '[No Body Returned]';
 
     /* =============================
        Public Queueable Entry Point
@@ -56,6 +63,7 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
             HttpResponse response = performCallout(apiDetail);
             if (!isSuccessResponse(response)) {
                 // Non-200 or empty body; treat as non-fatal (no retry logic built in here)
+                logFailedResponse(response, apiDetail);//Failed Responses stored in Exception_Log__c but in actual production there should be two objects 1. API Event Log 2. Exception Log
                 return;
             }
             List<Map<String, Object>> qualifyingBooks = extractQualifyingBooks(response.getBody());
@@ -99,9 +107,7 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
         HttpRequest req = new HttpRequest();
         req.setEndpoint(apiDetail.Http_Endpoint__c);
         req.setMethod(apiDetail.Http_Method__c);
-        if (apiDetail.Http_Timeout__c != null) {
-            req.setTimeout(Integer.valueOf(apiDetail.Http_Timeout__c));
-        }
+        req.setTimeout(Integer.valueOf(apiDetail.Http_Timeout__c));
         Http http = new Http();
         return http.send(req);
     }
@@ -190,6 +196,40 @@ public with sharing class MostPublishedBookService implements Queueable, Databas
                                     Stack_Trace__c = ex.getStackTraceString(),
                                     Line_Number__c = ex.getLineNumber(),
                                     Type__c=ex.getTypeName());
+    }
+    /**
+     * Log an unsuccessful (non-200 or blank body) HTTP response so failures without exceptions are visible.
+     * Reuses Exception_Log__c structure:
+     *  - Error_Message__c: concise status/endpoint summary (<=255 chars)
+     *  - Stack_Trace__c: truncated response body (acts as raw payload storage)
+     *  - Line_Number__c: set to 0 (no line context for HTTP response)
+     *  - Type__c: 'HTTP'
+     */
+    private static void logFailedResponse(HttpResponse res, API_Detail__mdt apiDetail) {
+        String endpoint = (apiDetail != null ? apiDetail.Http_Endpoint__c : STR_UNKNOWN_ENDPOINT);
+        if (res == null) {
+            INSERT new Exception_Log__c(
+                Error_Message__c = (MSG_HTTP_NULL_RESPONSE_PREFIX + endpoint).left(255),
+                Stack_Trace__c = MSG_HTTP_NULL_RESPONSE_BODY,
+                Line_Number__c = 0,
+                Type__c = LOG_TYPE_HTTP
+            );
+            return;
+        }
+        Integer statusCode = res.getStatusCode();
+        String status = res.getStatus();
+        String body = res.getBody();
+        // Truncate body defensively to avoid hitting long text limits (keep first 10k chars)
+        if (body != null && body.length() > 10000) {
+            body = body.substring(0, 10000) + MSG_TRUNCATED_SUFFIX;
+        }
+        String message = LOG_TYPE_HTTP + ' ' + statusCode + ' ' + status + ' - ' + endpoint;
+        INSERT new Exception_Log__c(
+            Error_Message__c = message.left(255),
+            Stack_Trace__C = (body == null ? MSG_NO_BODY : body),
+            Line_Number__c = 0,
+            Type__c = LOG_TYPE_HTTP
+        );
     }
     /* =============================
        Comparator (Descending Edition, nulls last)
